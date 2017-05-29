@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -14,6 +13,7 @@ import bovendorp.andre.androidpong.game.MainActivity;
 public class MenuRenderView extends View {
     Paint paint;
     private Intent intent;
+    private boolean enter = false;
 
     public MenuRenderView(Context context) {
         super(context);
@@ -25,21 +25,24 @@ public class MenuRenderView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawRGB(0,0,0);
+        canvas.drawRGB(0, 0, 0);
         paint.setColor(Color.WHITE);
         paint.setTextSize(30);
-        canvas.drawText("Menu", 100,100, paint);
+        canvas.drawText("Menu", 100, 100, paint);
         paint.setTextSize(150);
-        int height = getHeight()/2;
-        int width = getWidth() /3;
+        int height = getHeight() / 2;
+        int width = getWidth() / 3;
         canvas.drawText("START", width, height, paint);
         invalidate();
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-           getContext().startActivity(intent);
+        if (event.getAction() != MotionEvent.ACTION_CANCEL) {
+            if (enter)
+                return true;
+            getContext().startActivity(intent);
+            enter = true;
         }
         return true;
     }

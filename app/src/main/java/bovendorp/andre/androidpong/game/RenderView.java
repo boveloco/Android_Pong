@@ -69,7 +69,7 @@ public class RenderView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if(gameOver){
+        if (gameOver) {
             mp.stop();
             getContext().startActivity(intent);
             return;
@@ -84,7 +84,6 @@ public class RenderView extends View {
         canvas.drawText("Pontuação: " + player1.getPoints(), (getWidth() / 3) * 2, 60, paint);
         invalidate();
         GameResources.getInstance().swap();
-
     }
 
     @Override
